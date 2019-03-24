@@ -15,18 +15,18 @@ class LEDArray
                                 0b10000111,0b01000111,0b00100111,0b00010111};
     // Interrupt is called once a millisecond, to update the LEDs
     volatile int cycleCount = 0;
-    volatile byte ledsState;
-    volatile byte ledsStatePrev;
+    volatile uint16_t ledsState;
+    volatile uint16_t ledsStatePrev;
 
     int nbLEDs = 16;
 
     // 74HC595 Connections
     //ST_CP
-    int latchPin = 7;
+    int latchPin = 9;
     //SH_CP
-    int clockPin = 12;
+    int clockPin = 10;
     //DS
-    int dataPin = 11;
+    int dataPin = 5;
 
   private:
     void writeByte(byte b);
@@ -34,7 +34,7 @@ class LEDArray
   public:
     LEDArray();
     void ledCycle();
-    void setLedsState(byte);
+    void setLedsState(uint16_t);
     void setNbLEDs(int nb);
 };
 

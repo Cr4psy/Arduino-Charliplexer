@@ -13,7 +13,7 @@ LEDArray::LEDArray() {
 }
 
 
-void LEDArray::setLedsState(byte on){
+void LEDArray::setLedsState(uint16_t on){
     ledsState = on;
 }
 
@@ -32,9 +32,13 @@ void LEDArray::ledCycle(){
     if(cycleCount == 1){
         ledsStatePrev = ledsState;
     }
-    if((ledsStatePrev & 0b01) == 0b01){
+
+    if (ledsStatePrev == 0){
+        writeByte(LED_PATTERN[0]);
+    } else if((ledsStatePrev & 0b01) == 0b01){
         writeByte(LED_PATTERN[cycleCount]);
     }
+
     ledsStatePrev = ledsStatePrev >> 1;
     if (cycleCount==nbLEDs) {
         cycleCount=0;
